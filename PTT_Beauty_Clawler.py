@@ -11,18 +11,17 @@ headers = {"Cookie": "over18=1",
            }
 response = requests.get(url, headers=headers).text
 soup = BeautifulSoup(response, 'html.parser')
-# print(soup)
 fileName = soup.find_all("span", attrs={"class": "article-meta-value"})
-# print(filename[2].text)
-dirName = f"images/{fileName[2].text}"
+dirName = f"{fileName[2].text}"
+
 if not os.path.exists(dirName):
     os.makedirs(dirName)
+           
 links = soup.find_all("a")
 allowName = ["jpg", "png", "jpeg", "gif"]
-# print(imgs)
+
 for link in links:
     imgLink = link.get("href")
-    # print(imglink)
     if not imgLink:
         continue
     picName = imgLink.split("/")[-1]
